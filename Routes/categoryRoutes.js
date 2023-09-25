@@ -28,19 +28,19 @@ router.post('/categService', async(req, res)=>{
     }
 })
 
-// router.get('/users', async(req,res)=>{
-//     const users =await user.find();
-//     if(users){
-//         res.json({
-//             users:users
-//         })
-//     }
-//     else{
-//         res.json({
-//             message:"no user found"
-//         })
-//     }
-// })
+router.get('/getCategories', async(req,res)=>{
+    const categories =await categories.find();
+    if(categories){
+        res.json({
+            categories:categories
+        })
+    }
+    else{
+        res.json({
+            message:"no category found"
+        })
+    }
+})
 // router.post('/login', async(req,res)=>{
 //     const {email, password} = req.body;
 //     const users =await user.findOne({email});
