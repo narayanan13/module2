@@ -3,7 +3,7 @@ const router = express.Router()
 const user = require('../Schema/categorySchema');
 const category = require("../Schema/categorySchema");
 
-router.post('/summa', async(req, res)=>{
+router.post('/categService', async(req, res)=>{
     console.log("from the req in post api", req.body);
     try{
         const data = new category(req.body);
