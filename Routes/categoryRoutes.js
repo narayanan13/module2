@@ -28,38 +28,38 @@ router.post('/categService', async(req, res)=>{
     }
 })
 
-router.get('/users', async(req,res)=>{
-    const users =await user.find();
-    if(users){
-        res.json({
-            users:users
-        })
-    }
-    else{
-        res.json({
-            message:"no user found"
-        })
-    }
-})
-router.post('/login', async(req,res)=>{
-    const {email, password} = req.body;
-    const users =await user.findOne({email});
-    if(users){
-        if(users.password == password){
-            res.json({
-                message:"success"
-            })
-        }
-        else{
-            res.json({
-                message:"wrong password"
-            })
-        }
-    }
-    else{
-        res.json({
-            message:"no user found"
-        })
-    }
-})
+// router.get('/users', async(req,res)=>{
+//     const users =await user.find();
+//     if(users){
+//         res.json({
+//             users:users
+//         })
+//     }
+//     else{
+//         res.json({
+//             message:"no user found"
+//         })
+//     }
+// })
+// router.post('/login', async(req,res)=>{
+//     const {email, password} = req.body;
+//     const users =await user.findOne({email});
+//     if(users){
+//         if(users.password == password){
+//             res.json({
+//                 message:"success"
+//             })
+//         }
+//         else{
+//             res.json({
+//                 message:"wrong password"
+//             })
+//         }
+//     }
+//     else{
+//         res.json({
+//             message:"no user found"
+//         })
+//     }
+// })
 module.exports = router;
