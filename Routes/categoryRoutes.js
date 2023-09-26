@@ -66,6 +66,20 @@ router.get('/getCategories', async(req,res)=>{
         })
     }
 })
+
+router.get('/getProducts', async(req,res)=>{
+    const products =await product.find();
+    if(categories){
+        res.json({
+            products:product
+        })
+    }
+    else{
+        res.json({
+            message:"no product found"
+        })
+    }
+})
 // router.post('/login', async(req,res)=>{
 //     const {email, password} = req.body;
 //     const users =await user.findOne({email});
