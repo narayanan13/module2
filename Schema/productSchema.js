@@ -16,6 +16,10 @@ const productSchema = new mongoose.Schema({
     expiryDate:{
         type:String,
         required:true,
+    },
+    reminderDate:{
+        type:String,
+        required:true,
     }
 })
 
