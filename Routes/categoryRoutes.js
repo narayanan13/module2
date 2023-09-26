@@ -1,12 +1,37 @@
 const express = require("express")
 const router = express.Router()
-// const user = require('../Schema/categorySchema');
+const product = require('../Schema/productSchema');
 const category = require("../Schema/categorySchema");
 
 router.post('/categService', async(req, res)=>{
     console.log("from the req in post api", req.body);
     try{
         const data = new category(req.body);
+        const result =await data.save();
+        if(result){
+            res.json({
+                message:"success",
+                id:result._id
+            })
+        }
+        else{
+            res.json({
+                message:"failure"
+            })
+        }
+    }
+    catch(err){
+        console.log("error occurred in the api ", err);
+        res.json({
+            message:"failure"
+        })
+    }
+})
+
+router.post('/addProductService', async(req, res)=>{
+    console.log("from the req in post api", req.body);
+    try{
+        const data = new product(req.body);
         const result =await data.save();
         if(result){
             res.json({
