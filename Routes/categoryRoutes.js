@@ -71,7 +71,7 @@ router.get('/getProducts', async(req,res)=>{
     const products =await product.find();
     if(products){
         res.json({
-            products:product
+            products:products
         })
     }
     else{
