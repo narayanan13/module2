@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const user = require('../Schema/categorySchema');
+// const user = require('../Schema/categorySchema');
 const category = require("../Schema/categorySchema");
 
 router.post('/categService', async(req, res)=>{
@@ -29,7 +29,7 @@ router.post('/categService', async(req, res)=>{
 })
 
 router.get('/getCategories', async(req,res)=>{
-    const categories =await categories.find();
+    const categories =await category.find();
     if(categories){
         res.json({
             categories:categories
