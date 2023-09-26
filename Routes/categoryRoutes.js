@@ -69,7 +69,7 @@ router.get('/getCategories', async(req,res)=>{
 
 router.get('/getProducts', async(req,res)=>{
     const products =await product.find();
-    if(categories){
+    if(products){
         res.json({
             products:product
         })
