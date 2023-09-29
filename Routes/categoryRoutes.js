@@ -3,31 +3,39 @@ const router = express.Router()
 const product = require('../Schema/productSchema');
 const category = require("../Schema/categorySchema");
 
-router.post('/categService', async(req, res)=>{
+router.post('/categService', async (req, res) => {
     console.log("from the req in post api", req.body);
-    try{
-        const data = new category(req.body);
-        const result =await data.save();
-        if(result){
-            res.json({
-                message:"success",
-                id:result._id
-            })
-        }
-        else{
-            res.json({
-                message:"failure"
-            })
-        }
-    }
-    catch(err){
-        console.log("error occurred in the api ", err);
+    try {
+      // Check if the category name already exists in the database
+      const existingCategory = await category.findOne({ name: req.body.name });
+  
+      if (existingCategory) {
+        return res.json({
+          message: "Category name already exists",
+        });
+      }
+  
+      const data = new category(req.body);
+      const result = await data.save();
+  
+      if (result) {
         res.json({
-            message:"failure"
-        })
+          message: "Success",
+          id: result._id,
+        });
+      } else {
+        res.json({
+          message: "Failure",
+        });
+      }
+    } catch (err) {
+      console.log("Error occurred in the API", err);
+      res.json({
+        message: "Failure",
+      });
     }
-})
-
+  });
+  
 router.post('/addProductService', async(req, res)=>{
     console.log("from the req in post api", req.body);
     try{
