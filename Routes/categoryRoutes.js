@@ -7,7 +7,7 @@ router.post('/categService', async (req, res) => {
     console.log("from the req in post api", req.body);
     try {
       // Check if the category name already exists in the database
-      const existingCategory = await category.findOne({ name: req.body.name });
+      const existingCategory = await category.findOne({ categoryName: req.body.name });
   
       if (existingCategory) {
         return res.json({
