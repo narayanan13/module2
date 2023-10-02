@@ -5,29 +5,33 @@ const category = require("../Schema/categorySchema");
 
 router.post('/categService', async (req, res) => {
     console.log("from the req in post api", req.body);
+    const {categoryName}=req.body;
     try {
       // Check if the category name already exists in the database
-      const existingCategory = await category.findOne({ categoryName: req.body.name });
+      const existingCategory = await category.findOne({ categoryName});
   
       if (existingCategory) {
         return res.json({
           message: "Category name already exists",
         });
       }
-  
-      const data = new category(req.body);
-      const result = await data.save();
-  
-      if (result) {
-        res.json({
-          message: "Success",
-          id: result._id,
-        });
-      } else {
-        res.json({
-          message: "Failure",
-        });
+      else{
+
+        const data = new category(req.body);
+        const result = await data.save();
+    
+        if (result) {
+          res.json({
+            message: "Success",
+            id: result._id,
+          });
+        } else {
+          res.json({
+            message: "Failure",
+          });
+        }
       }
+  
     } catch (err) {
       console.log("Error occurred in the API", err);
       res.json({
