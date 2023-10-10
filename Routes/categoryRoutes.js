@@ -40,30 +40,84 @@ router.post('/categService', async (req, res) => {
     }
   });
   
-router.post('/addProductService', async(req, res)=>{
-    console.log("from the req in post api", req.body);
-    try{
-        const data = new product(req.body);
-        const result =await data.save();
-        if(result){
-            res.json({
-                message:"success",
-                id:result._id
-            })
-        }
-        else{
-            res.json({
-                message:"failure"
-            })
-        }
-    }
-    catch(err){
-        console.log("error occurred in the api ", err);
-        res.json({
-            message:"failure"
-        })
-    }
-})
+// router.post('/addProductService', async(req, res)=>{
+//     console.log("from the req in post api", req.body);
+//     try{
+//         const data = new product(req.body);
+//         const result =await data.save();
+//         if(result){
+//             res.json({
+//                 message:"success",
+//                 id:result._id
+//             })
+//         }
+//         else{
+//             res.json({
+//                 message:"failure"
+//             })
+//         }
+//     }
+//     catch(err){
+//         console.log("error occurred in the api ", err);
+//         res.json({
+//             message:"failure"
+//         })
+//     }
+// })
+
+router.post('/addProductService', async (req, res) => {
+  try {
+      const { productName,categoryName,dateType,expiryDate,reminderDate } = req.body;
+
+      // Check if a product with the same details (excluding expiryDate) already exists
+      const existingProduct = await Product.findOne({productName,categoryName,dateType,expiryDate,reminderDate});
+
+      if (existingProduct) {
+          // Check if the expiry dates are different
+          if (existingProduct.expiryDate !== expiryDate) {
+              // If different expiry date, create a new product entry
+              const newProduct = new Product({
+                  productName,
+                  categoryName,
+                  dateType,
+                  expiryDate,
+                  reminderDate,
+              });
+
+              const result = await newProduct.save();
+              res.json({
+                  message: "New product added successfully",
+                  id: result._id
+              });
+          } else {
+              // If the same expiry date, return a message or handle as needed
+              res.json({
+                  message: "Product with the same details already exists with the same expiry date."
+              });
+          }
+      } else {
+          // If it doesn't exist, create a new product entry
+          const newProduct = new Product({
+              productName,
+              categoryName,
+              dateType,
+              expiryDate,
+              reminderDate,
+          });
+
+          const result = await newProduct.save();
+          res.json({
+              message: "Product added successfully",
+              id: result._id
+          });
+      }
+  } catch (err) {
+      console.log("Error occurred in the API: ", err);
+      res.status(500).json({
+          message: "Failure"
+      });
+  }
+});
 
 router.get('/getCategories', async(req,res)=>{
     const categories =await category.find();
