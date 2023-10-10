@@ -70,13 +70,13 @@ router.post('/addProductService', async (req, res) => {
       const { productName,categoryName,dateType,expiryDate,reminderDate } = req.body;
 
       // Check if a product with the same details (excluding expiryDate) already exists
-      const existingProduct = await Product.findOne({productName,categoryName,dateType,expiryDate,reminderDate});
+      const existingProduct = await product.findOne({productName,categoryName,dateType,expiryDate,reminderDate});
 
       if (existingProduct) {
           // Check if the expiry dates are different
           if (existingProduct.expiryDate !== expiryDate) {
               // If different expiry date, create a new product entry
-              const newProduct = new Product({
+              const newProduct = new product({
                   productName,
                   categoryName,
                   dateType,
@@ -92,12 +92,12 @@ router.post('/addProductService', async (req, res) => {
           } else {
               // If the same expiry date, return a message or handle as needed
               res.json({
-                  message: "failure"
+                  message: "Product with same Details already exists!"
               });
           }
       } else {
           // If it doesn't exist, create a new product entry
-          const newProduct = new Product({
+          const newProduct = new product({
               productName,
               categoryName,
               dateType,
