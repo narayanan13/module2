@@ -86,13 +86,13 @@ router.post('/addProductService', async (req, res) => {
 
               const result = await newProduct.save();
               res.json({
-                  message: "New product added successfully",
+                  message: "success",
                   id: result._id
               });
           } else {
               // If the same expiry date, return a message or handle as needed
               res.json({
-                  message: "Product with the same details already exists with the same expiry date."
+                  message: "failure"
               });
           }
       } else {
@@ -107,14 +107,14 @@ router.post('/addProductService', async (req, res) => {
 
           const result = await newProduct.save();
           res.json({
-              message: "Product added successfully",
+              message: "success",
               id: result._id
           });
       }
   } catch (err) {
       console.log("Error occurred in the API: ", err);
       res.status(500).json({
-          message: "Failure"
+          message: "failure"
       });
   }
 });
