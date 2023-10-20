@@ -17,10 +17,6 @@ const productSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    reminderDate:{
-        type:String,
-        required:true,
-    }
 })
 
 const product = mongoose.model('Product',productSchema);
